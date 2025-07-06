@@ -7,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
 import CommonSearchInput from "./Components/CommonSearchInput";
 import Box from "@mui/material/Box";
+import CommonList from "./Components/CommonList";
 
 function App() {
   const [searchData, setsearchData] = useState();
@@ -27,7 +28,7 @@ function App() {
         </Box>
         <Box>
           <CommonCard>
-            
+            <CommonList></CommonList>
           </CommonCard>
         </Box>
         <Box>
