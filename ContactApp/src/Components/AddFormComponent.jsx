@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 
 function AddFormComponent() {
   const [open, setOpen] = useState(false);
+  // const {}
   const {
     register,
     handleSubmit,
@@ -23,13 +24,14 @@ function AddFormComponent() {
   const formDataSubmit = (formData) => {
     console.log("Submitted:", formData);
     reset();
-    // setOpen(false);
+    setOpen(false);
+
   };
 
   return (
     <>
       <Button
-        sx={{ width: "100%", }}
+        sx={{ width: "100%" }}
         variant="contained"
         onClick={() => setOpen(true)}
       >

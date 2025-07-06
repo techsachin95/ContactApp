@@ -4,7 +4,7 @@ import CardComponent from "./Components/CardComponent";
 import Typography from "@mui/material/Typography";
 import useGlobalStore from "./GlobalStore/GlobalStore";
 import Checkbox from "@mui/material/Checkbox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchInputComponent from "./Components/SearchInputComponent";
 import Box from "@mui/material/Box";
 import ListComponent from "./Components/ListComponent";
@@ -14,9 +14,17 @@ function App() {
   const [searchData, setsearchData] = useState();
   const { favorite, favoriteFunction, setSearchDataToGlobalStore } = useGlobalStore((state) => state);
 
+ useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchDataToGlobalStore(searchData);
+    }, 300); // 300ms debounce delay
+
+    return () => clearTimeout(timer);
+  }, [searchData]);
+
+
   function searchdata(e) {
     setsearchData(e.target.value);
-    setSearchDataToGlobalStore(searchData);
   }
   return (
     <>
