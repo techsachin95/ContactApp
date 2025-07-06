@@ -10,9 +10,20 @@ import {
 import ModalComponent from "./ModalComponent";
 import AddIcon from "@mui/icons-material/Add";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+// import { getQueryClient } from '@tanstack/react-query';
+import { addNewClient } from "../Api/Api";
 
 function AddFormComponent() {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const { mutateAsync: handleAddNewContact } = useMutation({
+    mutationFn: addNewClient,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
   // const {}
   const {
     register,
@@ -21,11 +32,11 @@ function AddFormComponent() {
     reset,
   } = useForm();
 
-  const formDataSubmit = (formData) => {
+  const formDataSubmit = async (formData) => {
     console.log("Submitted:", formData);
+    await handleAddNewContact(formData);
     reset();
     setOpen(false);
-
   };
 
   return (

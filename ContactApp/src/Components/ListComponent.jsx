@@ -102,7 +102,7 @@ const ListComponent = () => {
               borderRadius: 2,
             }}
           >
-            <Avatar sx={{ fontSize: "18px", p: 1 }}>H</Avatar>
+            <Avatar sx={{ fontSize: "18px", p: 1 }}>{item.name[0].toUpperCase()}</Avatar>
             <ListItem key={item.id} sx={{ p: 1 }}>
               <ListItemText
                 fontSize="10px"

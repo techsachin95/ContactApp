@@ -14,7 +14,23 @@
       "email": "bob@example.com",
       "phone": "234-567-8901",
       "address": "Pune",
-      "favorite": true
+      "favorite": false
+    },
+    {
+      "name": "sachin",
+      "email": "singh@gmail.com",
+      "phone": "7053737227",
+      "address": "asalpha village",
+      "favorite": false,
+      "id": 3
+    },
+    {
+      "name": "kiran rao",
+      "email": "kiran@gmail.com",
+      "phone": "2341543678",
+      "address": "ghatkoper west",
+      "favorite": false,
+      "id": 4
     }
   ]
 }
