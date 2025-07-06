@@ -5,7 +5,10 @@ import ListItemText from "@mui/material/ListItemText";
 import { fetchListOfContact } from "../Api/Api";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-const CommonList = () => {
+import Avatar from "@mui/material/Avatar";
+
+
+const ListComponent = () => {
   const [items, setitems] = useState();
   async function fetchdata() {
     const items = await fetchListOfContact();
@@ -21,9 +24,24 @@ const CommonList = () => {
     <List>
       {items && items.length > 0 ? (
         items.map((item) => (
-          <Box sx={{ fontSize: "10px" }}>
-            <ListItem key={item.id}>
-              <ListItemText primary={item.name} secondary={item.email} />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              border: "2px solid black",
+              mb: 2,
+              p: 1,
+              borderRadius: 2,
+            }}
+          >
+            <Avatar sx={{ fontSize: "18px", p: 1 }}>H</Avatar>
+            <ListItem key={item.id} sx={{ p: 1 }}>
+              <ListItemText
+                fontSize="10px"
+                primary={item.name}
+                secondary={item.email}
+              />
             </ListItem>
           </Box>
         ))
@@ -36,4 +54,4 @@ const CommonList = () => {
   );
 };
 
-export default CommonList;
+export default ListComponent;
