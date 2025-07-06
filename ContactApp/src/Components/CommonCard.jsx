@@ -1,9 +1,21 @@
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-export default function CommonCard({children}) {
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+export default function CommonCard({ children }) {
   return (
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{children}</Card>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Card
+        variant="outlined"
+        sx={{ minWidth: 400, p: 3, border: "2px solid #333", borderRadius: 2 }}
+      >
+        {children}
+      </Card>
     </Box>
   );
 }
