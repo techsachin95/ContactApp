@@ -9,10 +9,9 @@ import CommonSearchInput from "./Components/CommonSearchInput";
 import Box from "@mui/material/Box";
 
 function App() {
+  const [searchData, setsearchData] = useState();
   const { favorite, favoriteFunction, setSearchDataToGlobalStore } =
     useGlobalStore((state) => state);
-
-  const [searchData, setsearchData] = useState();
 
   function searchdata(e) {
     setsearchData(e.target.value);
@@ -21,13 +20,18 @@ function App() {
   return (
     <>
       <CommonCard>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
           <CommonSearchInput value={searchData} onChange={searchdata} />
           <Checkbox checked={favorite} onChange={favoriteFunction} />
           <Typography sx={{ fontSize: "10px" }}>Show Favorite</Typography>
         </Box>
         <Box>
-          
+          <CommonCard>
+            
+          </CommonCard>
+        </Box>
+        <Box>
+
         </Box>
       </CommonCard>
     </>
