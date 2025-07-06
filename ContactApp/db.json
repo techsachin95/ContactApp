@@ -1,0 +1,20 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "phone": "123-456-7890",
+      "address":"Mumbai",
+      "favorite": true
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "phone": "234-567-8901",
+      "address":"Pune",
+      "favorite": false
+    }
+  ]
+}
