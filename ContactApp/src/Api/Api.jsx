@@ -150,15 +150,4 @@ export const handleDeleteById = async (id) => {
   }
 };
 
-// export const fetchContactsByPage = async (page = 1, limit = 5, search = "") => {
-//   const response = await fetch(
-//     `http://localhost:3001/api/contacts?page=${page}&limit=${limit}&search=${search}`
-//   );
-//   const totalCount = response.headers.get("X-Total-Count"); // JSON server returns this
 
-//   const data = await response.json();
-//   return {
-//     contacts: data,
-//     total: Number(totalCount),
-//   };
-// };

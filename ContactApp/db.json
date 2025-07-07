@@ -61,7 +61,7 @@
       "email": "test@gmail.com",
       "phone": "2222222222",
       "address": "tesdt",
-      "favorite": true,
+      "favorite": false,
       "id": 10
     },
     {
@@ -77,7 +77,7 @@
       "email": "hhh@gmail.com",
       "phone": "8888888888",
       "address": "hhh",
-      "favorite": true,
+      "favorite": false,
       "id": 12
     },
     {
