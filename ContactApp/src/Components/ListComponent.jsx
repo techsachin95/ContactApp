@@ -76,7 +76,7 @@ const ListComponent = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "50vh",
+          minHeight: "20vh",
           gap: 2,
         }}
       >
@@ -106,10 +106,11 @@ const ListComponent = () => {
                 width: "100%",
                 alignItems: "center",
                 border: "2px solid black",
-                mb: 2,
-                p: 1,
+                mb: 1,
+                p: 0.7,
                 borderRadius: 2,
                 cursor: "pointer",
+                height: "50px",
               }}
               onClick={() => openEditModal(item.id)}
             >
@@ -169,7 +170,18 @@ const ListComponent = () => {
       </Stack> */}
 
       {/* MUI Pagination Dots */}
-      <Stack spacing={2} alignItems="center" mt={2}>
+      <Stack
+        sx={{
+          position: "sticky",
+          bottom: "-16px",
+          backgroundColor: "white",
+          padding: "10px",
+          margin: "0px",
+        }}
+        spacing={2}
+        alignItems="center"
+        mt={2}
+      >
         <Pagination
           count={totalPages}
           page={page}

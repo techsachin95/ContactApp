@@ -11,7 +11,6 @@ import ModalComponent from "./ModalComponent";
 import AddIcon from "@mui/icons-material/Add";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { addNewClient } from "../Api/Api";
 import useGlobalStore from "../GlobalStore/GlobalStore";
 

@@ -34,10 +34,19 @@ function App() {
           <Checkbox checked={favorite} onChange={favoriteFunction} />
           <Typography sx={{ fontSize: "10px" }}>Show Favorite</Typography>
         </Box>
-        <Box sx={{ border: "2px solid lightgray", p: 2,borderRadius:2 }}>
-          {/* <C> */}
+        <Box
+          sx={{
+            border: "2px solid lightgray",
+            p: 1,
+            borderRadius: 2,
+            height: "420px",
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              display: "none", // for Chrome, Safari
+            },
+          }}
+        >
           <ListComponent></ListComponent>
-          {/* </CardComponent> */}
         </Box>
         <Box sx={{ mt: 2 }}>
           <AddFormComponent></AddFormComponent>

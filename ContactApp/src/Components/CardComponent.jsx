@@ -14,9 +14,8 @@ function CardComponent({ children }) {
       <Card
         variant="outlined"
         sx={{
-          minWidth: 400,
-          // minHeight: "90vh",
-          p: 3,
+          // minWidth: 400,
+          p: 2,
           border: "2px solid #333",
           borderRadius: 2,
         }}
