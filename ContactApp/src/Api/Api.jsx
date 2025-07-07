@@ -7,48 +7,121 @@ export const fetchListOfContact = async (search = "") => {
     const contactList = await ApiResponce.json();
     return contactList;
   } catch (err) {
-    console.log(err);
+    console.error("Error updating contact:", err);
+    throw err;
+  }
+};
+
+export const fetchContactDataById = async (id) => {
+  try {
+    // await new Promise((resolve) => setTimeout(resolve, 500));
+    const ApiResponce = await fetch(`http://localhost:3001/api/contacts/${id}`);
+    const contactData = await ApiResponce.json();
+    return contactData;
+  } catch (err) {
+    console.error("Error updating contact:", err);
+    throw err;
   }
 };
 
 export const favoriteUpdateById = async (id, currentFavoriteValue) => {
-  const updatedContact = {
-    favorite: !currentFavoriteValue, // toggle the value
-  };
+  try {
+    const updatedContact = {
+      favorite: !currentFavoriteValue,
+    };
 
-  const response = await fetch(`http://localhost:3001/api/contacts/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedContact),
-  });
+    const response = await fetch(`http://localhost:3001/api/contacts/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedContact),
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to update favorite status");
+    if (!response.ok) {
+      throw new Error("Failed to update favorite status");
+    }
+
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (err) {
+    console.error("Error updating contact:", err);
+    throw err;
   }
-
-  const result = await response.json();
-  // console.log(result);
-  return result;
 };
 
-
-
 export const addNewClient = async (data) => {
-  const response = await fetch(`http://localhost:3001/api/contacts`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`http://localhost:3001/api/contacts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to update favorite status");
+    if (!response.ok) {
+      throw new Error("Failed to update favorite status");
+    }
+
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (err) {
+    console.error("Error updating contact:", err);
+    throw err;
   }
+};
 
-  const result = await response.json();
-  // console.log(result);
-  return result;
+export const updateClient = async ({ id, data }) => {
+  try {
+    const updatedContactData = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      favorite: data.favorite,
+    };
+    console.log(updatedContactData);
+
+    const response = await fetch(`http://localhost:3001/api/contacts/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedContactData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update contact");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error updating contact:", error);
+    throw error;
+  }
+};
+
+export const handleDeleteById = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:3001/api/contacts/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update contact");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error updating contact:", error);
+    throw error;
+  }
 };

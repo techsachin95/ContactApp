@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import {
   TextField,
   Checkbox,
@@ -8,47 +7,93 @@ import {
   Typography,
 } from "@mui/material";
 import ModalComponent from "./ModalComponent";
-// import AddIcon from "@mui/icons-material/Add";
 import { useForm } from "react-hook-form";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchContactDataById, handleDeleteById, updateClient } from "../Api/Api";
+import useGlobalStore from "../GlobalStore/GlobalStore";
 
-// import { addNewClient } from "../Api/Api";
+import { useEffect } from "react";
 
 function EditDeleteFormComponent({ open, setOpen }) {
-  // const queryClient = useQueryClient();
-
-  // const { mutateAsync: handleAddNewContact } = useMutation({
-  //   mutationFn: addNewClient,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries();
-  //   },
-  // });
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: editContactData } = useMutation({
+    mutationFn: updateClient,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const { ContactId } = useGlobalStore((state) => state);
+
+  const { data, isError } = useQuery({
+    queryKey: ["contacts"],
+    queryFn: () => fetchContactDataById(ContactId),
+  });
+
+  const { mutateAsync: handleDelete } = useMutation({
+    mutationFn: handleDeleteById,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["contacts"]);
+    },
+    onError: (error) => {
+      console.error("Delete failed:", error);
+    },
+  });
+
+  // console.log(data);
+
+  useEffect(() => {
+    data
+      ? reset({
+          name: data.name || "",
+          email: data.email || "",
+          phone: data.phone || "",
+          address: data.address || "",
+          favorite: data.favorite || false,
+        })
+      : null;
+  }, [data, reset]);
+
+  //handelling error during contact details loading
+  if (isError) {
+    return (
+      <Typography sx={{ fontSize: "18px" }} align="center">
+        Error in Loding Contact Details
+      </Typography>
+    );
+  }
 
   const formDataSubmit = async (formData) => {
     console.log("Submitted:", formData);
-    // await handleAddNewContact(formData);
+    await editContactData({ id: ContactId, data: formData });
     reset();
     setOpen(false);
   };
+
+  function handleCloseModal() {
+    handleDelete(ContactId);
+    setOpen(false);
+  }
 
   return (
     <>
       <ModalComponent
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => handleCloseModal()}
         onSubmit={handleSubmit(formDataSubmit)}
         title="Edit Contact"
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <TextField
             required
-            label="Name"
+            // label="Name"
+            placeholder="Name"
             name="name"
             variant="outlined"
             {...register("name", { required: true })}
@@ -60,7 +105,7 @@ function EditDeleteFormComponent({ open, setOpen }) {
           ) : null}
           <TextField
             required
-            label="Email"
+            placeholder="Email"
             name="email"
             variant="outlined"
             {...register("email", {
@@ -70,22 +115,19 @@ function EditDeleteFormComponent({ open, setOpen }) {
               },
             })}
           />
-
           {errors.email && errors.email.type === "required" && (
             <span style={{ color: "red", fontSize: "0.8rem" }}>
               Please Enter Email
             </span>
           )}
-
           {errors.email && errors.email.type === "pattern" && (
             <span style={{ color: "red", fontSize: "0.8rem" }}>
               Enter a valid email address
             </span>
           )}
-
           <TextField
             required
-            label="Phone No"
+            placeholder="Phone No"
             type="text"
             name="phone"
             variant="outlined"
@@ -113,7 +155,7 @@ function EditDeleteFormComponent({ open, setOpen }) {
           ) : null}
           <TextField
             required
-            label="Address"
+            placeholder="Address"
             name="address"
             variant="outlined"
             multiline
@@ -126,9 +168,9 @@ function EditDeleteFormComponent({ open, setOpen }) {
             </span>
           ) : null}
           <FormControlLabel
-            control={<Checkbox name="favorite" />}
             label="Favorite"
-            {...register("favorite")}
+            name="favorite"
+            control={<Checkbox {...register("favorite")} />}
           />
         </Box>
       </ModalComponent>

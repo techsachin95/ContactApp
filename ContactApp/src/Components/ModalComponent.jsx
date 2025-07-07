@@ -1,6 +1,7 @@
 import { Modal, Box, Typography, Button, Divider } from "@mui/material";
 import useGlobalStore from "../GlobalStore/GlobalStore";
-
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 const style = {
   position: "absolute",
   top: "50%",
@@ -14,9 +15,9 @@ const style = {
 };
 
 function ModalComponent({ open, onClose, onSubmit, title, children }) {
-  const contactId = useGlobalStore((store) => store.ContactId);
+  const { ContactId } = useGlobalStore((state) => state);
 
-  console.log(contactId);
+  console.log(ContactId);
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
@@ -25,13 +26,21 @@ function ModalComponent({ open, onClose, onSubmit, title, children }) {
         </Typography>
         <Divider sx={{ mb: 2 }} />
         {children}
-        <Box mt={3} display="flex" justifyContent="center">
-          {contactId ? (
+        <Box mt={3} display="flex" justifyContent="center" gap={2}>
+          {ContactId ? (
             <>
-              <Button  variant="contained" onClick={onSubmit}>
+              <Button
+                variant="contained"
+                startIcon={<EditIcon />}
+                onClick={onSubmit}
+              >
                 Edit
               </Button>
-              <Button variant="contained" onClick={onClose}>
+              <Button
+                variant="contained"
+                startIcon={<DeleteIcon />}
+                onClick={onClose}
+              >
                 Delete
               </Button>
             </>

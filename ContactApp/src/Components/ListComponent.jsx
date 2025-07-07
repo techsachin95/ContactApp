@@ -16,7 +16,8 @@ import { useState } from "react";
 import EditDeleteFormComponent from "./EditDeleteFormComponent";
 
 const ListComponent = () => {
-  const { favorite, searchInputData,setContactIdToGlobalStore } = useGlobalStore((state) => state);
+  const { favorite, searchInputData, setContactIdToGlobalStore } =
+    useGlobalStore((state) => state);
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
@@ -91,7 +92,7 @@ const ListComponent = () => {
 
   function openEditModal(data) {
     setOpen(true);
-    setContactIdToGlobalStore(data)
+    setContactIdToGlobalStore(data);
   }
 
   return (
@@ -109,7 +110,7 @@ const ListComponent = () => {
                 p: 1,
                 borderRadius: 2,
               }}
-               key={item.id}
+              key={item.id}
               onClick={() => openEditModal(item.id)}
             >
               <Box
