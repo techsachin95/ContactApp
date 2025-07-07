@@ -1,16 +1,40 @@
-export const fetchListOfContact = async (search = "") => {
+// export const fetchListOfContact = async (page, limit,search = "") => {
+//   try {
+//     await new Promise((resolve) => setTimeout(resolve, 500));
+//     const ApiResponce = await fetch(
+//       // `http://localhost:3001/api/contacts?q=${search}`
+//       `http://localhost:3001/api/contacts?page=${page}&limit=${limit}&search=${search}`);
+//     const contactList = await ApiResponce.json();
+//     return contactList;
+//   } catch (err) {
+//     console.error("Error updating contact:", err);
+//     throw err;
+//   }
+// };
+
+// Api.js
+export const fetchListOfContact = async (page = 1, limit = 10, search = "", favorite) => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    const ApiResponce = await fetch(
-      `http://localhost:3001/api/contacts?q=${search}`
-    );
-    const contactList = await ApiResponce.json();
-    return contactList;
+    const params = new URLSearchParams();
+    params.append("_page", page);
+    params.append("_limit", limit);
+    if (search) params.append("q", search); // assuming you're using json-server with ?q= for search
+    if (favorite) params.append("favorite", favorite); // filter favorites server-side if needed
+
+    const response = await fetch(`http://localhost:3001/api/contacts?${params.toString()}`);
+    const data = await response.json();
+    const totalCount = response.headers.get("X-Total-Count");
+
+    return {
+      contacts: data,
+      totalCount: Number(totalCount) || 0,
+    };
   } catch (err) {
-    console.error("Error updating contact:", err);
+    console.error("Error fetching contacts:", err);
     throw err;
   }
 };
+
 
 export const fetchContactDataById = async (id) => {
   try {
@@ -43,7 +67,7 @@ export const favoriteUpdateById = async (id, currentFavoriteValue) => {
     }
 
     const result = await response.json();
-    // console.log(result);
+    console.log(result);
     return result;
   } catch (err) {
     console.error("Error updating contact:", err);
