@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 
-
 function CardComponent({ children }) {
   return (
     <Box
@@ -27,6 +26,5 @@ function CardComponent({ children }) {
     </Box>
   );
 }
-
 
 export default CardComponent;

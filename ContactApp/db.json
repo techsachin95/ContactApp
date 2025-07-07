@@ -31,6 +31,14 @@
       "address": "ghatkoper west",
       "favorite": false,
       "id": 4
+    },
+    {
+      "name": "Aryan singh",
+      "email": "aryan@gmail.com",
+      "phone": "7654832189",
+      "address": "goa",
+      "favorite": false,
+      "id": 5
     }
   ]
 }

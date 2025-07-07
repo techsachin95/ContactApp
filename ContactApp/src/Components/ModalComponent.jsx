@@ -1,5 +1,5 @@
-import React from "react";
 import { Modal, Box, Typography, Button, Divider } from "@mui/material";
+import useGlobalStore from "../GlobalStore/GlobalStore";
 
 const style = {
   position: "absolute",
@@ -14,6 +14,9 @@ const style = {
 };
 
 function ModalComponent({ open, onClose, onSubmit, title, children }) {
+  const contactId = useGlobalStore((store) => store.ContactId);
+
+  console.log(contactId);
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
@@ -23,12 +26,25 @@ function ModalComponent({ open, onClose, onSubmit, title, children }) {
         <Divider sx={{ mb: 2 }} />
         {children}
         <Box mt={3} display="flex" justifyContent="center">
-          {/* <Button onClick={onClose} sx={{ mr: 1 }}>
-            Cancel
-          </Button> */}
-          <Button variant="contained" onClick={onSubmit}>
-            Submit
-          </Button>
+          {contactId ? (
+            <>
+              <Button  variant="contained" onClick={onSubmit}>
+                Edit
+              </Button>
+              <Button variant="contained" onClick={onClose}>
+                Delete
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="contained" onClick={onSubmit}>
+                Submit
+              </Button>
+              {/* <Button onClick={onClose} sx={{ mr: 1 }}>
+                Cancel
+              </Button> */}
+            </>
+          )}
         </Box>
       </Box>
     </Modal>

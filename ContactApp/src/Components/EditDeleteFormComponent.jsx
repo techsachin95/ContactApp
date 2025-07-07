@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import {
   TextField,
   Checkbox,
@@ -8,23 +8,21 @@ import {
   Typography,
 } from "@mui/material";
 import ModalComponent from "./ModalComponent";
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { addNewClient } from "../Api/Api";
-import useGlobalStore from "../GlobalStore/GlobalStore";
+// import { addNewClient } from "../Api/Api";
 
-function AddFormComponent() {
-  const { setContactIdToGlobalStore } = useGlobalStore((state) => state);
-  const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
-  const { mutateAsync: handleAddNewContact } = useMutation({
-    mutationFn: addNewClient,
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    },
-  });
+function EditDeleteFormComponent({ open, setOpen }) {
+  // const queryClient = useQueryClient();
+
+  // const { mutateAsync: handleAddNewContact } = useMutation({
+  //   mutationFn: addNewClient,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries();
+  //   },
+  // });
   const {
     register,
     handleSubmit,
@@ -34,31 +32,18 @@ function AddFormComponent() {
 
   const formDataSubmit = async (formData) => {
     console.log("Submitted:", formData);
-    await handleAddNewContact(formData);
+    // await handleAddNewContact(formData);
     reset();
     setOpen(false);
   };
 
-  function AddContact() {
-    setOpen(true);
-    setContactIdToGlobalStore('AddContact');
-  }
-
   return (
     <>
-      <Button
-        sx={{ width: "100%" }}
-        variant="contained"
-        onClick={() => AddContact()}
-      >
-        <AddIcon /> Add Contact
-      </Button>
-
       <ModalComponent
         open={open}
         onClose={() => setOpen(false)}
         onSubmit={handleSubmit(formDataSubmit)}
-        title="Contact Form"
+        title="Edit Contact"
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <TextField
@@ -151,4 +136,4 @@ function AddFormComponent() {
   );
 }
 
-export default AddFormComponent;
+export default EditDeleteFormComponent;

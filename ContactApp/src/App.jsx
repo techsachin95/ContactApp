@@ -12,16 +12,16 @@ import AddFormComponent from "./Components/AddFormComponent";
 
 function App() {
   const [searchData, setsearchData] = useState();
-  const { favorite, favoriteFunction, setSearchDataToGlobalStore } = useGlobalStore((state) => state);
+  const { favorite, favoriteFunction, setSearchDataToGlobalStore } =
+    useGlobalStore((state) => state);
 
- useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setSearchDataToGlobalStore(searchData);
-    }, 300); // 300ms debounce delay
+    }, 400); // 300ms debounce delay
 
     return () => clearTimeout(timer);
   }, [searchData]);
-
 
   function searchdata(e) {
     setsearchData(e.target.value);
@@ -34,10 +34,10 @@ function App() {
           <Checkbox checked={favorite} onChange={favoriteFunction} />
           <Typography sx={{ fontSize: "10px" }}>Show Favorite</Typography>
         </Box>
-        <Box>
-          <CardComponent>
-            <ListComponent></ListComponent>
-          </CardComponent>
+        <Box sx={{ border: "2px solid lightgray", p: 2,borderRadius:2 }}>
+          {/* <C> */}
+          <ListComponent></ListComponent>
+          {/* </CardComponent> */}
         </Box>
         <Box sx={{ mt: 2 }}>
           <AddFormComponent></AddFormComponent>

@@ -12,15 +12,18 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { Button } from "@mui/material";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
-const ListComponent = () => {
-  const { favorite, searchInputData } = useGlobalStore((state) => state);
+import { useState } from "react";
+import EditDeleteFormComponent from "./EditDeleteFormComponent";
 
+const ListComponent = () => {
+  const { favorite, searchInputData,setContactIdToGlobalStore } = useGlobalStore((state) => state);
+  const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["contacts", searchInputData],
     queryFn: () => fetchListOfContact(searchInputData),
   });
-  console.log(data, searchInputData);
+  // console.log(data, searchInputData);
 
   let filterContact = data;
 
@@ -86,51 +89,86 @@ const ListComponent = () => {
     queryClient.invalidateQueries(["contacts"]); // refetch updated data
   }
 
+  function openEditModal(data) {
+    setOpen(true);
+    setContactIdToGlobalStore(data)
+  }
+
   return (
-    <List>
-      {filterContact && filterContact.length > 0 ? (
-        filterContact.map((item) => (
-          <Box
-            key={item.id}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              border: "2px solid black",
-              mb: 2,
-              p: 1,
-              borderRadius: 2,
-            }}
-          >
-            <Avatar sx={{ fontSize: "18px", p: 1 }}>{item.name[0].toUpperCase()}</Avatar>
-            <ListItem key={item.id} sx={{ p: 1 }}>
-              <ListItemText
-                fontSize="10px"
-                primary={item.name}
-                secondary={item.email}
-              />
-            </ListItem>
-            {item.favorite ? (
-              <Button
-                onClick={() => favroitUpdateFunction(item.id, item.favorite)}
+    <>
+      <List>
+        {filterContact && filterContact.length > 0 ? (
+          filterContact.map((item) => (
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center",
+                border: "2px solid black",
+                mb: 2,
+                p: 1,
+                borderRadius: 2,
+              }}
+               key={item.id}
+              onClick={() => openEditModal(item.id)}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  alignItems: "center",
+                  borderRadius: 2,
+                }}
               >
-                <StarOutlinedIcon sx={{ color: "gold" }} />
-              </Button>
-            ) : (
-              <Button
-                onClick={() => favroitUpdateFunction(item.id, item.favorite)}
-              >
-                <StarOutlineIcon />
-              </Button>
-            )}
-          </Box>
-        ))
-      ) : (
-        <Typography sx={{ fontSize: "18px" }} align="center">
-          There Is No Contact Added
-        </Typography>
+                <Avatar sx={{ fontSize: "18px", p: 1 }}>
+                  {item.name[0].toUpperCase()}
+                </Avatar>
+                <ListItem key={item.id} sx={{ p: 1 }}>
+                  <ListItemText
+                    fontSize="10px"
+                    primary={item.name}
+                    secondary={item.email}
+                  />
+                </ListItem>
+                {item.favorite ? (
+                  <Button
+                    sx={{ backgroundColor: "transparent" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      favroitUpdateFunction(item.id, item.favorite);
+                    }}
+                  >
+                    <StarOutlinedIcon sx={{ color: "gold" }} />
+                  </Button>
+                ) : (
+                  <Button
+                    sx={{ backgroundColor: "transparent" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      favroitUpdateFunction(item.id, item.favorite);
+                    }}
+                  >
+                    <StarOutlineIcon />
+                  </Button>
+                )}
+              </Box>
+            </Box>
+          ))
+        ) : (
+          <Typography sx={{ fontSize: "18px" }} align="center">
+            There Is No Contact Added
+          </Typography>
+        )}
+      </List>
+
+      {open && (
+        <EditDeleteFormComponent
+          open={open}
+          setOpen={setOpen}
+          // contact={selectedContact}
+        />
       )}
-    </List>
+    </>
   );
 };
 
