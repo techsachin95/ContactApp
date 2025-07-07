@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSearchDataToGlobalStore(searchData);
+      setSearchDataToGlobalStore(searchData.toLowerCase());
     }, 400); // 300ms debounce delay
 
     return () => clearTimeout(timer);

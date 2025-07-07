@@ -1,3 +1,28 @@
 {
-  "contacts": []
+  "contacts": [
+    {
+      "name": "kiran rao 123",
+      "email": "gest@gmail.com",
+      "phone": "2222222222",
+      "address": "asalpha village",
+      "favorite": false,
+      "id": 2
+    },
+    {
+      "name": "test",
+      "email": "test@gmail.com",
+      "phone": "3344556677",
+      "address": "test",
+      "favorite": true,
+      "id": 3
+    },
+    {
+      "name": "test",
+      "email": "sa@gmail.com",
+      "phone": "2222222222",
+      "address": "test",
+      "favorite": false,
+      "id": 4
+    }
+  ]
 }

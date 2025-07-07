@@ -9,8 +9,13 @@ import {
 import ModalComponent from "./ModalComponent";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchContactDataById, handleDeleteById, updateClient } from "../Api/Api";
+import {
+  fetchContactDataById,
+  handleDeleteById,
+  updateClient,
+} from "../Api/Api";
 import useGlobalStore from "../GlobalStore/GlobalStore";
+import { Controller } from "react-hook-form";
 
 import { useEffect } from "react";
 
@@ -20,6 +25,7 @@ function EditDeleteFormComponent({ open, setOpen }) {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm();
   const queryClient = useQueryClient();
 
@@ -55,7 +61,7 @@ function EditDeleteFormComponent({ open, setOpen }) {
           email: data.email || "",
           phone: data.phone || "",
           address: data.address || "",
-          favorite: data.favorite || false,
+          favorite: !!data.favorite,
         })
       : null;
   }, [data, reset]);
@@ -71,7 +77,11 @@ function EditDeleteFormComponent({ open, setOpen }) {
 
   const formDataSubmit = async (formData) => {
     console.log("Submitted:", formData);
-    await editContactData({ id: ContactId, data: formData });
+    const formattedData = {
+      ...formData,
+      name: formData.name.toLowerCase(),
+    };
+    await editContactData({ id: ContactId, data: formattedData });
     reset();
     setOpen(false);
   };
@@ -85,7 +95,8 @@ function EditDeleteFormComponent({ open, setOpen }) {
     <>
       <ModalComponent
         open={open}
-        onClose={() => handleCloseModal()}
+        onClose={setOpen} //new
+        onDelete={() => handleCloseModal()}
         onSubmit={handleSubmit(formDataSubmit)}
         title="Edit Contact"
       >
@@ -167,10 +178,21 @@ function EditDeleteFormComponent({ open, setOpen }) {
               Please Enter address
             </span>
           ) : null}
-          <FormControlLabel
+          {/* <FormControlLabel
             label="Favorite"
-            name="favorite"
             control={<Checkbox {...register("favorite")} />}
+            name="favorite"
+          /> */}
+          <Controller
+            name="favorite"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel
+                label="Favorite"
+                control={<Checkbox {...field} checked={!!field.value} />}
+              />
+            )}
           />
         </Box>
       </ModalComponent>

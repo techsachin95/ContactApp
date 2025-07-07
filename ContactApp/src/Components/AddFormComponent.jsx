@@ -34,7 +34,11 @@ function AddFormComponent() {
 
   const formDataSubmit = async (formData) => {
     console.log("Submitted:", formData);
-    await handleAddNewContact(formData);
+      const formattedData = {
+    ...formData,
+    name: formData.name.toLowerCase(),
+  };
+    await handleAddNewContact(formattedData);
     reset();
     setOpen(false);
   };
@@ -42,6 +46,7 @@ function AddFormComponent() {
   function AddContact() {
     setOpen(true);
     setContactIdToGlobalStore('AddContact');
+      reset();
   }
 
   return (
