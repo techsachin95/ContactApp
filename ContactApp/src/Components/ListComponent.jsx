@@ -46,10 +46,28 @@ const ListComponent = () => {
     setPage(value);
   };
 
-  const handleFavoriteToggle = async (id, isFav) => {
-    await favoriteUpdateById(id, isFav);
+  const { mutateAsync: handelfavoriteUpdateById } = useMutation({
+  mutationFn: ({ id, currentFavoriteValue }) =>
+    favoriteUpdateById(id, currentFavoriteValue),
+
+  onSuccess: () => {
     queryClient.invalidateQueries(["contacts"]);
-  };
+  },
+
+  onError: (error) => {
+    console.error("Favorite update failed:", error);
+  },
+});
+
+function handleFavoriteToggle(id, currentFavoriteValue) {
+  console.log(id, currentFavoriteValue);
+  handelfavoriteUpdateById({ id, currentFavoriteValue });
+}
+
+  // const handleFavoriteToggle = async (id, isFav) => {
+  //   await favoriteUpdateById(id, isFav);
+  //   queryClient.invalidateQueries(["contacts"]);
+  // };
 
   const openEditModal = (id) => {
     setContactIdToGlobalStore(id);
