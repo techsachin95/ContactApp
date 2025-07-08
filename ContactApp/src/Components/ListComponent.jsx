@@ -56,17 +56,6 @@ const ListComponent = () => {
     setOpen(true);
   };
 
-  // const handleNext = () => {
-  //   if (page < totalPages) {
-  //     setPage((prev) => prev + 1);
-  //   }
-  // };
-
-  // const handlePrevious = () => {
-  //   if (page > 1) {
-  //     setPage((prev) => prev - 1);
-  //   }
-  // };
 
   if (isLoading) {
     return (
@@ -140,34 +129,7 @@ const ListComponent = () => {
         )}
       </List>
 
-      {/* NEXT / PREVIOUS BUTTONS */}
-      {/* <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="center"
-        alignItems="center"
-        mt={2}
-      >
-        <Button
-          variant="contained"
-          onClick={handlePrevious}
-          disabled={page === 1}
-        >
-          Previous
-        </Button>
 
-        <Typography>
-          Page: {page} of {totalPages}
-        </Typography>
-
-        <Button
-          variant="contained"
-          onClick={handleNext}
-          disabled={page === totalPages}
-        >
-          Next
-        </Button>
-      </Stack> */}
 
       {/* MUI Pagination Dots */}
       <Stack
