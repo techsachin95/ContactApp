@@ -1,18 +1,4 @@
-// export const fetchListOfContact = async (page, limit,search = "") => {
-//   try {
-//     await new Promise((resolve) => setTimeout(resolve, 500));
-//     const ApiResponce = await fetch(
-//       // `http://localhost:3001/api/contacts?q=${search}`
-//       `http://localhost:3001/api/contacts?page=${page}&limit=${limit}&search=${search}`);
-//     const contactList = await ApiResponce.json();
-//     return contactList;
-//   } catch (err) {
-//     console.error("Error updating contact:", err);
-//     throw err;
-//   }
-// };
 
-// Api.js
 export const fetchListOfContact = async (page = 1, limit = 10, search = "", favorite) => {
   try {
     const params = new URLSearchParams();
