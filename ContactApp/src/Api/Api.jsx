@@ -1,5 +1,5 @@
 
-export const fetchListOfContact = async (page = 1, limit = 10, search = "", favorite) => {
+export const fetchListOfContact = async (page, limit, search = "", favorite) => {
   try {
     const params = new URLSearchParams();
     params.append("_page", page);
