@@ -1,6 +1,7 @@
 
 export const fetchListOfContact = async (page, limit, search = "", favorite) => {
   try {
+     await new Promise((resolve) => setTimeout(resolve, 500));
     const params = new URLSearchParams();
     params.append("_page", page);
     params.append("_limit", limit);
