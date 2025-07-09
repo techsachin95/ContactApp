@@ -83,7 +83,7 @@ function handleFavoriteToggle(id, currentFavoriteValue) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "20vh",
+          minHeight: "60vh",
           gap: 2,
         }}
       >
