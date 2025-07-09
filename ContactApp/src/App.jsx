@@ -9,7 +9,7 @@ import SearchInputComponent from "./Components/SearchInputComponent";
 import Box from "@mui/material/Box";
 import ListComponent from "./Components/ListComponent";
 import AddFormComponent from "./Components/AddFormComponent";
-
+import { Stack } from "@mui/material";
 function App() {
   const [searchData, setsearchData] = useState();
   const { favorite, favoriteFunction, setSearchDataToGlobalStore } =
@@ -29,11 +29,11 @@ function App() {
   return (
     <>
       <CardComponent>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+        <Stack direction="row" spacing={2} alignItems={"center"} m={1}>
           <SearchInputComponent value={searchData} onChange={searchdata} />
           <Checkbox checked={favorite} onChange={favoriteFunction} />
           <Typography sx={{ fontSize: "10px" }}>Show Favorite</Typography>
-        </Box>
+        </Stack>
         <Box
           sx={{
             border: "2px solid lightgray",
