@@ -103,10 +103,10 @@ function handleFavoriteToggle(id, currentFavoriteValue) {
 
   return (
     <>
-      <List>
+      
         {filterContact.length > 0 ? (
           filterContact.map((item) => (
-            <Box
+            <List 
               key={item.id}
               sx={{
                 display: "flex",
@@ -119,8 +119,7 @@ function handleFavoriteToggle(id, currentFavoriteValue) {
                 cursor: "pointer",
                 height: "50px",
               }}
-              onClick={() => openEditModal(item.id)}
-            >
+              onClick={() => openEditModal(item.id)}>
               <Avatar sx={{ fontSize: "18px", mr: 2 }}>
                 {item.name[0].toUpperCase()}
               </Avatar>
@@ -140,12 +139,12 @@ function handleFavoriteToggle(id, currentFavoriteValue) {
                   <StarOutlineIcon />
                 )}
               </Button>
-            </Box>
+            </List>
           ))
         ) : (
           <Typography align="center">There Is No Contact Added</Typography>
         )}
-      </List>
+     
 
 
 
