@@ -90,17 +90,17 @@ function AddFormComponent() {
             })}
           />
 
-          {errors.email && errors.email.type === "required" && (
+          {errors.email && errors.email.type === "required" ? (
             <span style={{ color: "red", fontSize: "0.8rem" }}>
               Please Enter Email
             </span>
-          )}
+          ):null}
 
-          {errors.email && errors.email.type === "pattern" && (
+          {errors.email && errors.email.type === "pattern" ? (
             <span style={{ color: "red", fontSize: "0.8rem" }}>
               Enter a valid email address
             </span>
-          )}
+          ):null}
 
           <TextField
             required
